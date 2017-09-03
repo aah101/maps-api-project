@@ -1,0 +1,127 @@
+<!-- This is the corresponding "starter code" for 04_Hello Map in Udacity and Google's Maps
+API Course, Lesson 1 -->
+
+<!-- to do
+dropdown menu showing walthamstow, stratford,
+east london after the olympics??
+leytonstone, leyton that filters each area DONE
+
+list view with all locations and markers.
+apply the filter restricts to one area
+
+each marker has an info window DONE
+
+markers animate when clicked DONE
+
+use another api to bring in info on a marker, async
+
+use failure techniques to handle errors DONE
+
+credit use of api info
+
+write readme file, write what each function does
+
+extras
+use local storage to keep data
+
+favourite a location?
+ -->
+
+<html>
+ <head>
+<script type="text/javascript" src="mapsapi.js"></script>
+<script type='text/javascript' src='knockout-3.4.2.js'></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+ <!-- styles put here, but you can include a CSS file and reference it instead! -->
+ </head>
+ <body>
+  <div class="container">
+  <div class="options-box">
+  <h1>Leytonstoner: a guide to eating, drinking and living in E11</h1>
+		  <div>
+
+		  <ul id="titleList" data-bind="foreach: locationPlaces">
+		  <li data-bind="text: title, click: $root.clickFunction"></li>
+
+		  <!-- populateInfoWindow.bind(this,$data.marker,$root.infowindow) -->
+
+		  </ul>
+
+		</div>
+  <script type="text/javascript">
+ //       var mapLocationsModel = function(items) {
+
+ //       this.items = ko.observableArray(items);
+	// 	//self.markers = [];
+	// }
+//above - earlier attempt to link up two
+
+// 	below - this to get the list on the page 
+// ko.applyBindings({
+// 	locations: [
+//         {title: 'Northcote Arms', type: 'Pubs', location: {lat: 51.560395, lng: -0.001637 }},
+//         {title: 'All you read is love', type: 'Cafe/Bookshop', location: {lat: 51.570642, lng: 0.014055 }},
+//         {title: 'Little Saigon', type: 'Restaurants', location: {lat: 51.569132, lng: 0.012022 }},
+//         {title: 'The Red Lion', type: 'Pubs', location: {lat: 51.567992, lng: 0.010976 }},
+//         {title: 'Marmelo', type: 'Restaurants', location: {lat: 51.564073, lng: -0.005854 }},
+//         {title: 'Leyton Technical', type: 'Pubs', location: {lat: 51.558887, lng: -0.007482 }},
+//           {title: 'Hitchcock house', type: 'Sights', location: {lat: 51.560066, lng: 0.007322}},
+//         {title: 'Mora Italian', type: 'Restaurants', location: {lat: 51.559262, lng: 0.006974 }},
+//           {title: 'Olympic Stadium', type: 'Sports, Sights', location: {lat: 51.539469, lng: -0.016590 }},
+//           {title: 'Roof East', type: 'Restaurant, Bar, Entertainment', location: {lat: 51.541811, lng: -0.001248 }},
+//           {title: 'Westfield', type: 'Shopping, restaurants, bars, casino', location: {lat: 51.543452, lng: -0.006527 }},
+//           {title: 'London Aquatics Centre', type: 'Sports, Sights', location: {lat: 51.540972, lng: -0.010674 }},
+//           {title: 'The Breakfast Club', type: 'Restaurants', location: {lat: 51.550681, lng: -0.024590 }}
+//        ]
+//    });
+
+
+        </script>
+
+  <!-- <div class="dropdown">
+  <button id="button1" class="dropbtn">Dropdown</button>
+<div id="myDropdown" class="dropdown-content">
+   <a href="#">Pubs</a>
+   <a href="#">Restaurants</a>
+   <a href="#">Shopping</a>
+   <a href="#">Sights</a>
+   <a href="#">Sports</a>
+  </div>
+</div> -->
+<hr>
+<!-- <div>
+         <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
+         <input id="zoom-to-area" type="button" value="Zoom">
+        </div>
+
+       <hr>
+       <div>
+         <span class="text"> Within </span>
+         <select id="max-duration">
+           <option value="10">10 min</option>
+           <option value="15">15 min</option>
+           <option value="30">30 min</option>
+           <option value="60">1 hour</option>
+         </select>
+         <select id="mode">
+           <option value="DRIVING">drive</option>
+           <option value="WALKING">walk</option>
+           <option value="BICYCLING">bike</option>
+           <option value="TRANSIT">transit ride</option>
+         </select>
+         <span class="text">of</span>
+         <input id="search-within-time-text" type="text" placeholder="Ex: 1 southwark bridge road, london, UK">
+         <input id="search-within-time" type="button" value="Go">
+       </div>
+  </div>
+  </div>
+ -->   <!-- TODO 1: Create a place to put the map in the HTML-->
+   <div id="map"></div>
+   <script async defer
+   src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v =3&callback=initMap">
+   //https://maps.googleapis.com/maps/api/distancematrix/json?origins=4800+ElCaminoReal+LosAltos+CA&destinations==2465+LathemStreet+MountainView+CA&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U
+   //milan to florecne
+   //https://maps.googleapis.com/maps/api/directions/json?origin=Florence&destination=Milan&waypoints=Bologna|Venice|Genoa&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U
+   </script>
+ </body>
+</html>
