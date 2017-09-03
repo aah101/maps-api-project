@@ -5,25 +5,16 @@ API Course, Lesson 1 -->
 dropdown menu showing walthamstow, stratford,
 east london after the olympics??
 leytonstone, leyton that filters each area DONE
-
 list view with all locations and markers.
 apply the filter restricts to one area
-
 each marker has an info window DONE
-
 markers animate when clicked DONE
-
 use another api to bring in info on a marker, async
-
 use failure techniques to handle errors DONE
-
 credit use of api info
-
 write readme file, write what each function does
-
 extras
 use local storage to keep data
-
 favourite a location?
  -->
 
@@ -50,12 +41,10 @@ favourite a location?
 		</div>
   <script type="text/javascript">
  //       var mapLocationsModel = function(items) {
-
  //       this.items = ko.observableArray(items);
 	// 	//self.markers = [];
 	// }
 //above - earlier attempt to link up two
-
 // 	below - this to get the list on the page 
 // ko.applyBindings({
 // 	locations: [
@@ -74,8 +63,6 @@ favourite a location?
 //           {title: 'The Breakfast Club', type: 'Restaurants', location: {lat: 51.550681, lng: -0.024590 }}
 //        ]
 //    });
-
-
         </script>
 
   <!-- <div class="dropdown">
@@ -93,7 +80,6 @@ favourite a location?
          <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
          <input id="zoom-to-area" type="button" value="Zoom">
         </div>
-
        <hr>
        <div>
          <span class="text"> Within </span>
@@ -125,3 +111,70 @@ favourite a location?
    </script>
  </body>
 </html>
+
+
+
+
+
+
+
+
+<!-- This is the corresponding "starter code" for 04_Hello Map in Udacity and Google's Maps
+   API Course, Lesson 1 -->
+<!-- to do
+   dropdown menu showing walthamstow, stratford,
+   east london after the olympics??
+   leytonstone, leyton that filters each area DONE
+   
+   list view with all locations and markers. DONE
+   apply the filter restricts to one area
+   
+   each marker has an info window DONE
+   
+   markers animate when clicked DONE
+   
+   use another api to bring in info on a marker, async
+   
+   use failure techniques to handle errors DONE
+   
+   credit use of api info
+   
+   write readme file, write what each function does
+   
+   extras
+   use local storage to keep data
+   
+   favourite a location?
+    -->
+<!-- <html>
+   <head>
+      <script type="text/javascript" src="mapsapi.js"></script>
+      <script type='text/javascript' src='knockout-3.4.2.js'></script>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <! styles put here, but you can include a CSS file and reference it instead! -->
+   <!-- </head>
+   <body>
+      <div class="options-box">
+         <h1>Leytonstoner: a guide to eating, drinking and living in E11</h1>
+      </div>
+      <div>
+         <ul id="titleList" data-bind="foreach: locationPlaces">
+            <li data-bind="text: title, click: $root.clickFunction"></li>
+         </ul>
+      </div> -->
+ <!--       <div class="dropdown">
+         <button id="button1" class="dropbtn">Select</button>
+      </div> -->      
+      <!-- <div id="myDropdown" class="dropdown-content">
+         <a href="#">Pubs</a>
+         <a href="#">Restaurants</a>
+         <a href="#">Shopping</a>
+         <a href="#">Sights</a>
+         <a href="#">Sports</a>
+      </div> -->
+      
+ <!--      <div id="map"></div>
+      <script async defer
+         src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v =3&callback=initMap"></script>
+   </body>
+</html> -->
