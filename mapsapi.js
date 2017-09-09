@@ -1,7 +1,13 @@
-  //model
+//model
+
+  // var bars = 'bar';
+  // var thingsToDo = 'todo';
+  // var restaurants = 'restaurant';
+  // var cafe = 'cafe';
+
   var locations = [{
           title: 'Northcote Arms',
-          type: 'Pubs',
+          type: 'bar',
           location: {
               lat: 51.560395,
               lng: -0.001637
@@ -9,7 +15,7 @@
       },
       {
           title: 'All you read is love',
-          type: 'Cafe/Bookshop',
+          type: 'cafe',
           location: {
               lat: 51.570642,
               lng: 0.014055
@@ -17,7 +23,7 @@
       },
       {
           title: 'Little Saigon',
-          type: 'Restaurants',
+          type: 'restaurant',
           location: {
               lat: 51.569132,
               lng: 0.012022
@@ -25,7 +31,7 @@
       },
       {
           title: 'The Red Lion',
-          type: 'Pubs',
+          type: 'bar',
           location: {
               lat: 51.567992,
               lng: 0.010976
@@ -33,7 +39,7 @@
       },
       {
           title: 'Marmelo',
-          type: 'Restaurants',
+          type: 'restaurant',
           location: {
               lat: 51.564073,
               lng: -0.005854
@@ -41,7 +47,7 @@
       },
       {
           title: 'Leyton Technical',
-          type: 'Pubs',
+          type: 'bar',
           location: {
               lat: 51.558887,
               lng: -0.007482
@@ -49,7 +55,7 @@
       },
       {
           title: 'Hitchcock house',
-          type: 'Sights',
+          type: 'thingsToDo',
           location: {
               lat: 51.560066,
               lng: 0.007322
@@ -57,7 +63,7 @@
       },
       {
           title: 'Mora Italian',
-          type: 'Restaurants',
+          type: 'restaurant',
           location: {
               lat: 51.559262,
               lng: 0.006974
@@ -65,7 +71,7 @@
       },
       {
           title: 'Olympic Stadium',
-          type: 'Sports, Sights',
+          type: 'thingsToDo',
           location: {
               lat: 51.539469,
               lng: -0.016590
@@ -73,7 +79,7 @@
       },
       {
           title: 'Roof East',
-          type: 'Restaurant, Bar, Entertainment',
+          type: 'bar',
           location: {
               lat: 51.541811,
               lng: -0.001248
@@ -81,7 +87,7 @@
       },
       {
           title: 'Westfield',
-          type: 'Shopping, restaurants, bars, casino',
+          type: 'thingsToDo',
           location: {
               lat: 51.543452,
               lng: -0.006527
@@ -109,10 +115,91 @@
 
   //Create a map variable
   var map;
+  var marker;
   var markers = [];
+  var largeInfowindow; 
+  var bounds;
+      //var myObservable = ko.observableArray(locations);
+
+      var viewModel = function() {
+          var self = this;
+          var marker;
+
+          var Locations = function(element) {
+          this.title = element.title,
+          this.location = element.location,
+          this.marker = element.marker,
+          this.isVisible = ko.observable(true)
+          }
+
+          self.locationPlaces = ko.observableArray([]);
+
+          locations.forEach(function(locationItem) {
+          self.locationPlaces.push(new Locations(locationItem));
+          });
+
+          self.openWindow = function(place) {
+          google.maps.event.trigger(place.marker, 'click');
+          };
+
+         self.clickHandler = function(place) {
+              
+              place.marker.setAnimation(google.maps.Animation.BOUNCE); // this = marker
+                  setTimeout(function() {
+                      place.marker.setAnimation(null)
+                  }, 750);
+          };
+
+
+
+  //close viewModel
+}
+var vm = new viewModel();
+
+          // marker.addclickFunction(place) {
+          //     if (this.title) {
+          //         //var self = this;
+          //         //neither this nor self nor marker on its own works. marker just picks up the last marker.
+          //         marker.setAnimation(google.maps.Animation.BOUNCE);
+          //         setTimeout(function() {
+          //             marker.setAnimation(null);
+          //         }, 750);
+
+          //     }
+          //}
+
+
+          // self.typeChoices = ['All places', 'Bars', 'Things to do', 'Restaurants', 'Cafes'];
+          // self.typeSelector = ko.observable(self.typeChoices[0]);
+
+          // self.filterItems = ko.computed(function() {
+          // var listItem = self.locationPlaces();
+          // var typeSelector = self.typeSelector();
+          // for (var i = 0; i < listItem.length; i++) {
+          // if (typeSelector === self.typeChoices[0]) {
+          // listItem[i].isVisible(true);
+          // if (marker) {
+          // listItem[i].marker.setVisible(true);
+          // }//13/7
+
+          // } else if (typeSelector !== listItem[i].type) {
+          //   listItem[i].isVisible(false);
+          //   listItem[i].marker.setVisible(false);
+          // } else {
+          //   listItem[i].isVisible(true);
+          //   listItem[i].marker.setVisible(true);
+          // }
+      //}
+  //};
+
+//  Initiate google event to open infoWindow when list item is clicked
+//closes the VM
+
+//store viewModel in variable, created in initMap
+
 
   function initMap() {
-
+    //var self = this;
       map = new google.maps.Map(document.getElementById('map'), {
           center: {
               lat: 51.555111,
@@ -122,50 +209,20 @@
           //styles: styles,
           mapTypeControl: false
       });
+      //??
+      var infoWindow = new google.maps.InfoWindow({
+    maxWidth: 150
+  });
+            var defaultIcon = makeMarkerIcon('0091ff');
+            var highlightedIcon = makeMarkerIcon('FFFF24')
 
-      var myObservable = ko.observableArray(this.locations);
+            largeInfowindow = new google.maps.InfoWindow();
+            bounds = new google.maps.LatLngBounds();
 
-      var viewModel = function() {
-          var self = this;
-          self.title = ko.observable('');
-          self.location = ko.observable();
-          self.marker = ko.observable();
-          //filter method to go in here
-          self.locationPlaces = ko.observableArray(locations);
-
-
-          self.clickFunction = function(location) {
-              if (this.title) {
-                  var self = this;
-                  self.marker.setAnimation(google.maps.Animation.BOUNCE);
-                  setTimeout(function() {
-                      self.marker.setAnimation(null); // End marker animation after 2 seconds 
-                  }, 750);
-                  // map.setZoom(15); //Zoom the map
-                  // map.panTo(this.latlng);
-              }
-          }
-
-
-      };
-      ko.applyBindings(new viewModel());
-
-      //     this.myComputedObservable = ko.computed(function() {
-      //         return self.personName() + " " + self.personAge();
-      //     });
-      // };
-
-
-
-      var largeInfowindow = new google.maps.InfoWindow();
-      var bounds = new google.maps.LatLngBounds();
-      var defaultIcon = makeMarkerIcon('0091ff');
-      var highlightedIcon = makeMarkerIcon('FFFF24')
-
-      for (var i = 0; i < locations.length; i++) {
+            for (var i = 0; i < locations.length; i++) {
           var position = locations[i].location;
           var title = locations[i].title;
-          var marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
               position: position,
               title: title,
               map: map,
@@ -173,41 +230,38 @@
               icon: defaultIcon,
               id: i
           });
-
-
-          locations[i].marker = marker;
-
+          bounds.extend(marker.position);
+          vm.locationPlaces()[i].marker = marker;
           markers.push(marker);
 
           marker.addListener('click', function() {
               var self = this;
-              populateInfoWindow(this, largeInfowindow);
-              self.setAnimation(google.maps.Animation.BOUNCE), // this = marker
+              populateInfoWindow(this, largeInfowindow); 
+              self.setAnimation(google.maps.Animation.BOUNCE);
                   setTimeout(function() {
-                      self.setAnimation(null)
+                      self.setAnimation(null);
                   }, 750);
-
-
           });
 
           marker.addListener('mouseover', function() {
               this.setIcon(highlightedIcon);
-          });
+          })
+
+
 
           marker.addListener('mouseout', function() {
               this.setIcon(defaultIcon);
           });
 
           bounds.extend(markers[i].position);
+
       }
       //closes the for loop
+            map.fitBounds(bounds);
 
 
-      map.fitBounds(bounds);
-
-
-      function makeMarkerIcon(markerColor) {
-          var markerImage = new google.maps.MarkerImage(
+function makeMarkerIcon(markerColor) {
+            var markerImage = new google.maps.MarkerImage(
               //'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +  '|40|_|%E2%80%A2',
               'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor + '|40|_|%E2%80%A2',
               new google.maps.Size(21, 34),
@@ -217,9 +271,9 @@
           return markerImage;
       }
 
-      //called by onclick
-      function populateInfoWindow(marker, infowindow) {
 
+          function populateInfoWindow(marker, infowindow) {
+            google.maps.event.trigger(this.marker, 'click');
           if (infowindow.marker != marker) {
               infowindow.marker = marker;
               infowindow.setContent('<div>' + marker.title + '</div>');
@@ -259,10 +313,44 @@
 
           }
 
-      } //closes populateInfoWindow
+    };
+         ko.applyBindings(vm);
 
-  } //closes initMap
 
+};
+          
+
+          // self.filterItems = ko.computed(function() {
+          //   var filter = self.filter();
+          //   if (!filter) {
+          //     return self.items;
+          //   } else {
+          //     return ko.utils.arrayFilter(self.items(), function(item) {
+          //       return ko.utils.string
+          //     })
+          //   }
+          //   }
+          // })
+
+      //};
+      // var vm = new viewModel();
+      // //ko.applyBindings(new viewModel());
+      // ko.applyBindings(vm);
+
+
+      //ko.applyBindings(new viewModel());
+
+      //     this.myComputedObservable = ko.computed(function() {
+      //         return self.personName() + " " + self.personAge();
+      //     });
+      // };
+
+
+
+
+      //called by onclick
+
+  //} //closes initMap
 
 
   // // Close the dropdown menu if the user clicks outside of it
