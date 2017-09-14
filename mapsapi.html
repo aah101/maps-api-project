@@ -2,11 +2,6 @@
 API Course, Lesson 1 -->
 
 <!-- to do
-dropdown menu showing walthamstow, stratford,
-east london after the olympics??
-leytonstone, leyton that filters each area DONE
-list view with all locations and markers.
-apply the filter restricts to one area
 each marker has an info window DONE
 markers animate when clicked DONE
 use another api to bring in info on a marker, async
@@ -20,12 +15,7 @@ favourite a location?
 
 <html>
  <head> 
-<script type='text/javascript' src='knockout-3.4.2.js'></script>
-   <script async defer
-   src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v =3&callback=initMap">
-   </script>
 
-<script type="text/javascript" src="mapsapi.js"></script>
   <link rel="stylesheet" type="text/css" href="css/style.css">
  <!-- styles put here, but you can include a CSS file and reference it instead! -->
  </head>
@@ -34,40 +24,37 @@ favourite a location?
   <div class="options-box">
   <h1>Leytonstoner</h1>
 	
-  <div>
-
+<!--   <div>
 		  <ul id="titleList" data-bind="foreach: locationPlaces">
 		  <li data-bind="text: title, click: $root.clickHandler"></li>
-
+ -->
 		  <!-- populateInfoWindow.bind(this,$data.marker,$root.infowindow) -->
 
-		  </ul>
+		  <!-- </ul> -->
 
-	</div>
+	<!-- </div> -->
   
-      <div class="dropdown">
-  <button id="button1" class="dropbtn">Refine your search</button>    
+<h2>Refine choices</h2>
+  <div class="dropdown">
+  <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>    
 <!-- <select class="menu-items" data-bind="options: typeChoices, value: typeSelector"></select>-->          
-<!-- ,<ul data-bind="foreach: locationPlaces">
-            <li class="list-item" data-bind="text: title, visible: isVisible"></li>
-          </ul> -->
-<!-- click: $parent.openWindow, -->
-
-    </div>
-  <div id="myDropdown" class="dropdown-content">
-   <a href="#">Bars</a>
-   <a href="#">Restaurants</a>
-   <a href="#">Things to do</a>
-   <a href="#">Sights</a>
-   <a href="#">Sports</a>
-  
+      <ul data-bind="foreach: locationPlaces">
+        <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li>
+      </ul>
+      <!-- click: $root.openWindow, does this open the infowindow from the list? -->
+  </div>
 </div>
 </div>
-
   <script type="text/javascript">
         </script>
-
 <hr>
    <div id="map"></div>
+ <script type='text/javascript' src='knockout-3.4.2.js'></script>
+   <script async defer
+   src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap">
+   </script>
+   <script src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="mapsapi.js"></script>
+
  </body>
 </html>

@@ -1,204 +1,14 @@
-//model
-
-  // var bars = 'bar';
-  // var thingsToDo = 'todo';
-  // var restaurants = 'restaurant';
-  // var cafe = 'cafe';
-
-  var locations = [{
-          title: 'Northcote Arms',
-          type: 'bar',
-          location: {
-              lat: 51.560395,
-              lng: -0.001637
-          }
-      },
-      {
-          title: 'All you read is love',
-          type: 'cafe',
-          location: {
-              lat: 51.570642,
-              lng: 0.014055
-          }
-      },
-      {
-          title: 'Little Saigon',
-          type: 'restaurant',
-          location: {
-              lat: 51.569132,
-              lng: 0.012022
-          }
-      },
-      {
-          title: 'The Red Lion',
-          type: 'bar',
-          location: {
-              lat: 51.567992,
-              lng: 0.010976
-          }
-      },
-      {
-          title: 'Marmelo',
-          type: 'restaurant',
-          location: {
-              lat: 51.564073,
-              lng: -0.005854
-          }
-      },
-      {
-          title: 'Leyton Technical',
-          type: 'bar',
-          location: {
-              lat: 51.558887,
-              lng: -0.007482
-          }
-      },
-      {
-          title: 'Hitchcock house',
-          type: 'thingsToDo',
-          location: {
-              lat: 51.560066,
-              lng: 0.007322
-          }
-      },
-      {
-          title: 'Mora Italian',
-          type: 'restaurant',
-          location: {
-              lat: 51.559262,
-              lng: 0.006974
-          }
-      },
-      {
-          title: 'Olympic Stadium',
-          type: 'thingsToDo',
-          location: {
-              lat: 51.539469,
-              lng: -0.016590
-          }
-      },
-      {
-          title: 'Roof East',
-          type: 'bar',
-          location: {
-              lat: 51.541811,
-              lng: -0.001248
-          }
-      },
-      {
-          title: 'Westfield',
-          type: 'thingsToDo',
-          location: {
-              lat: 51.543452,
-              lng: -0.006527
-          }
-      },
-      {
-          title: 'London Aquatics Centre',
-          type: 'Sports, Sights',
-          location: {
-              lat: 51.540972,
-              lng: -0.010674
-          }
-      },
-      {
-          title: 'The Breakfast Club',
-          type: 'Restaurants',
-          location: {
-              lat: 51.550681,
-              lng: -0.024590
-          }
-      }
-  ];
-
-
-
-  //Create a map variable
+ //Create a map variable
   var map;
   var marker;
   var markers = [];
-  var largeInfowindow; 
+  var largeInfowindow;
   var bounds;
-      //var myObservable = ko.observableArray(locations);
+  var infowindow;
+  var newArray;
 
-      var viewModel = function() {
-          var self = this;
-          var marker;
-
-          var Locations = function(element) {
-          this.title = element.title,
-          this.location = element.location,
-          this.marker = element.marker,
-          this.isVisible = ko.observable(true)
-          }
-
-          self.locationPlaces = ko.observableArray([]);
-
-          locations.forEach(function(locationItem) {
-          self.locationPlaces.push(new Locations(locationItem));
-          });
-
-          self.openWindow = function(place) {
-          google.maps.event.trigger(place.marker, 'click');
-          };
-
-         self.clickHandler = function(place) {
-              
-              place.marker.setAnimation(google.maps.Animation.BOUNCE); // this = marker
-                  setTimeout(function() {
-                      place.marker.setAnimation(null)
-                  }, 750);
-          };
-
-
-
-  //close viewModel
-}
-var vm = new viewModel();
-
-          // marker.addclickFunction(place) {
-          //     if (this.title) {
-          //         //var self = this;
-          //         //neither this nor self nor marker on its own works. marker just picks up the last marker.
-          //         marker.setAnimation(google.maps.Animation.BOUNCE);
-          //         setTimeout(function() {
-          //             marker.setAnimation(null);
-          //         }, 750);
-
-          //     }
-          //}
-
-
-          // self.typeChoices = ['All places', 'Bars', 'Things to do', 'Restaurants', 'Cafes'];
-          // self.typeSelector = ko.observable(self.typeChoices[0]);
-
-          // self.filterItems = ko.computed(function() {
-          // var listItem = self.locationPlaces();
-          // var typeSelector = self.typeSelector();
-          // for (var i = 0; i < listItem.length; i++) {
-          // if (typeSelector === self.typeChoices[0]) {
-          // listItem[i].isVisible(true);
-          // if (marker) {
-          // listItem[i].marker.setVisible(true);
-          // }//13/7
-
-          // } else if (typeSelector !== listItem[i].type) {
-          //   listItem[i].isVisible(false);
-          //   listItem[i].marker.setVisible(false);
-          // } else {
-          //   listItem[i].isVisible(true);
-          //   listItem[i].marker.setVisible(true);
-          // }
-      //}
-  //};
-
-//  Initiate google event to open infoWindow when list item is clicked
-//closes the VM
-
-//store viewModel in variable, created in initMap
-
-
-  function initMap() {
+function initMap() {
+    console.log("initMap executed");
     //var self = this;
       map = new google.maps.Map(document.getElementById('map'), {
           center: {
@@ -210,9 +20,9 @@ var vm = new viewModel();
           mapTypeControl: false
       });
       //??
-      var infoWindow = new google.maps.InfoWindow({
-    maxWidth: 150
-  });
+  //     var infowindow = new google.maps.InfoWindow({
+  //   maxWidth: 150
+  // });
             var defaultIcon = makeMarkerIcon('0091ff');
             var highlightedIcon = makeMarkerIcon('FFFF24')
 
@@ -234,14 +44,31 @@ var vm = new viewModel();
           vm.locationPlaces()[i].marker = marker;
           markers.push(marker);
 
+          largeInfowindow = new google.maps.InfoWindow();
+
           marker.addListener('click', function() {
-              var self = this;
-              populateInfoWindow(this, largeInfowindow); 
-              self.setAnimation(google.maps.Animation.BOUNCE);
-                  setTimeout(function() {
-                      self.setAnimation(null);
-                  }, 750);
-          });
+            // var self = this;
+            // if(this.title)
+              //self.setAnimation(google.maps.Animation.BOUNCE);
+              populateInfoWindow(self, largeInfowindow);
+                  // setTimeout(function() {
+                  //     self.setAnimation(null);
+                  // }, 750);
+              })
+
+
+            // marker.addListener('click', function() {
+            //     var self = this;
+            //     if(this.title) {
+            //       //populateInfoWindow(self, largeInfowindow);
+            //     self.setAnimation(google.maps.Animation.BOUNCE);
+            //     //populateInfoWindow(self, largeInfowindow);
+            //         setTimeout(function() {
+            //             self.setAnimation(null);
+            //         }, 750);
+            //   }
+
+            // });
 
           marker.addListener('mouseover', function() {
               this.setIcon(highlightedIcon);
@@ -314,75 +141,210 @@ function makeMarkerIcon(markerColor) {
           }
 
     };
-         ko.applyBindings(vm);
+
+          ko.applyBindings(vm);
 
 
 };
-          
-
-          // self.filterItems = ko.computed(function() {
-          //   var filter = self.filter();
-          //   if (!filter) {
-          //     return self.items;
-          //   } else {
-          //     return ko.utils.arrayFilter(self.items(), function(item) {
-          //       return ko.utils.string
-          //     })
-          //   }
-          //   }
-          // })
-
-      //};
-      // var vm = new viewModel();
-      // //ko.applyBindings(new viewModel());
-      // ko.applyBindings(vm);
-
-
-      //ko.applyBindings(new viewModel());
-
-      //     this.myComputedObservable = ko.computed(function() {
-      //         return self.personName() + " " + self.personAge();
-      //     });
-      // };
 
 
 
+//model
 
-      //called by onclick
+  var locations = [{
+          title: 'Northcote Arms',
+          type: 'Bars',
+          location: {
+              lat: 51.560395,
+              lng: -0.001637
+          }
+      },
+      {
+          title: 'All you read is love',
+          type: 'Diners',
+          location: {
+              lat: 51.570642,
+              lng: 0.014055
+          }
+      },
+      {
+          title: 'Little Saigon',
+          type: 'Diners',
+          location: {
+              lat: 51.569132,
+              lng: 0.012022
+          }
+      },
+      {
+          title: 'The Red Lion',
+          type: 'Bars',
+          location: {
+              lat: 51.567992,
+              lng: 0.010976
+          }
+      },
+      {
+          title: 'Marmelo',
+          type: 'Diners',
+          location: {
+              lat: 51.564073,
+              lng: -0.005854
+          }
+      },
+      {
+          title: 'Leyton Technical',
+          type: 'Bars',
+          location: {
+              lat: 51.558887,
+              lng: -0.007482
+          }
+      },
+      {
+          title: 'Hitchcock house',
+          type: 'Things to do',
+          location: {
+              lat: 51.560066,
+              lng: 0.007322
+          }
+      },
+      {
+          title: 'Mora Italian',
+          type: 'Diners',
+          location: {
+              lat: 51.559262,
+              lng: 0.006974
+          }
+      },
+      {
+          title: 'Olympic Stadium',
+          type: 'Things to do',
+          location: {
+              lat: 51.539469,
+              lng: -0.016590
+          }
+      },
+      {
+          title: 'Roof East',
+          type: 'Bars',
+          location: {
+              lat: 51.541811,
+              lng: -0.001248
+          }
+      },
+      {
+          title: 'Westfield',
+          type: 'Things to do',
+          location: {
+              lat: 51.543452,
+              lng: -0.006527
+          }
+      },
+      {
+          title: 'London Aquatics Centre',
+          type: 'Things to do',
+          location: {
+              lat: 51.540972,
+              lng: -0.010674
+          }
+      },
+      {
+          title: 'The Breakfast Club',
+          type: 'Diners',
+          location: {
+              lat: 51.550681,
+              lng: -0.024590
+          }
+      }
+  ];
 
-  //} //closes initMap
+ 
+  // $("button").mouseover(function() {
+  //   $("ul").addClass("show");
+  //   // $("ul").removeClass("dropdown-content");
 
-
-  // // Close the dropdown menu if the user clicks outside of it
-  // window.onclick = function(event) {
-  //   if (!event.target.matches('.dropbtn')) {
-
-  //     var dropdowns = document.getElementsByClassName("dropdown-content");
-  //     for (var i = 0; i < dropdowns.length; i++) {
-  //       var openDropdown = dropdowns[i];
-  //       if (openDropdown.classList.contains('show')) {
-  //         openDropdown.classList.remove('show');
-  //       }
-  //     }
-  //   }
-  // }
-
-
-
-  // document.getElementById('show-listings').addEventListener('click', showListings);
-  // document.getElementById('hide-listings').addEventListener('click', hideListings);
-  // document.getElementById('toggle-drawing').addEventListener('click', function(){
-  // toggleDrawing(drawingManager);
   // });
 
-  // document.getElementById('zoom-to-area').addEventListener('click', function() {
-  //         zoomToArea();
-  //       });
+  // $("button").mouseout(function() {
+  //     $("ul").removeClass(".show");
+  //   });
 
-  // document.getElementById('search-within-time').addEventListener('click', function() {
-  //         searchWithinTime();
-  //       });
+ // var populateInfoWindow;
+      //var myObservable = ko.observableArray(locations);
 
+
+
+
+//  Initiate google event to open infoWindow when list item is clicked
+// closes the VM
+
+// store viewModel in variable, created in initMap
+
+
+
+var viewModel = function() {
+          var self = this;
+
+          var Locations = function(element) {
+          this.title = element.title,
+          this.isVisible = ko.observable(true),
+          this.location = element.location,
+          this.type = element.type,
+          this.marker = element.marker
+          }
+
+          self.locationPlaces = ko.observableArray([]);
+
+          locations.forEach(function(locationItem) {
+          self.locationPlaces.push(new Locations(locationItem));
+          });
+
+          self.typeChoices = ['All places', 'Bars', 'Things to do', 'Diners'];
+          self.typeSelector = ko.observable(self.typeChoices[0]);
+  
+          self.filterItems = ko.computed(function() {
+          var listItem = self.locationPlaces();
+          var typeSelector = self.typeSelector();
+
+          for (var i = 0; i < listItem.length; i++) {
+          if (typeSelector === self.typeChoices[0]) {
+          listItem[i].isVisible(true);
+           if (marker) {
+          listItem[i].marker.setVisible(true);
+            }
+
+          } else if (typeSelector !== listItem[i].type) {
+            listItem[i].isVisible(false);
+            listItem[i].marker.setVisible(false);
+
+          } else {
+            listItem[i].isVisible(true);
+            listItem[i].marker.setVisible(true);
+          }
+      }
+    });
+
+      
+self.clickHandler = function(place) {
+
+              place.marker.setAnimation(google.maps.Animation.BOUNCE); // this = marker
+                  setTimeout(function() {
+                      place.marker.setAnimation(null)
+                  }, 750);
+          };
+
+//  Initiate google event to open infoWindow when list item is clicked
+  // self.openWindow = function(place) {
+  //   google.maps.event.trigger(place.marker, 'click');
+  // };
+
+  //close viewModel
+
+}
+
+          var vm = new viewModel();
+
+
+  //} //closes initMap
 
   //   function zoomToArea() {
   //   // Initialize the geocoder.
@@ -410,10 +372,3 @@ function makeMarkerIcon(markerColor) {
   //   }
 
   // }
-  // </script>
-  // <!--TffODO: Load the JS API ASYNCHRONOUSLY below.-->
-  // <script async defer
-  // src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v =3&callback=initMap">
-  // //https://maps.googleapis.com/maps/api/distancematrix/json?origins=4800+ElCaminoReal+LosAltos+CA&destinations==2465+LathemStreet+MountainView+CA&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U
-  // //milan to florecne
-  // //https://maps.googleapis.com/maps/api/directions/json?origin=Florence&destination=Milan&waypoints=Bologna|Venice|Genoa&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U
