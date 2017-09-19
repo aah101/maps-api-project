@@ -1,60 +1,36 @@
-<!-- This is the corresponding "starter code" for 04_Hello Map in Udacity and Google's Maps
-API Course, Lesson 1 -->
-
-<!-- to do
-each marker has an info window DONE
-markers animate when clicked DONE
-use another api to bring in info on a marker, async
-use failure techniques to handle errors DONE
-credit use of api info
-write readme file, write what each function does
-extras
-use local storage to keep data
-favourite a location?
- -->
-
 <html>
- <head> 
 
-  <link rel="stylesheet" type="text/css" href="css/style.css">
- <!-- styles put here, but you can include a CSS file and reference it instead! -->
- </head>
- <body>
-  <div class="container">
-  <div class="options-box">
-  <h1>Leytonstoner</h1>
-	
-<!--   <div>
-		  <ul id="titleList" data-bind="foreach: locationPlaces">
-		  <li data-bind="text: title, click: $root.clickHandler"></li>
- -->
-		  <!-- populateInfoWindow.bind(this,$data.marker,$root.infowindow) -->
+<head>
 
-		  <!-- </ul> -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- styles put here, but you can include a CSS file and reference it instead! -->
+</head>
 
-	<!-- </div> -->
-  
-<h2>Refine choices</h2>
-  <div class="dropdown">
-  <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>    
-<!-- <select class="menu-items" data-bind="options: typeChoices, value: typeSelector"></select>-->          
-      <ul data-bind="foreach: locationPlaces">
-        <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li>
-      </ul>
-      <!-- click: $root.openWindow, does this open the infowindow from the list? -->
-  </div>
-</div>
-</div>
-  <script type="text/javascript">
-        </script>
-<hr>
-   <div id="map"></div>
- <script type='text/javascript' src='knockout-3.4.2.js'></script>
-   <script async defer
-   src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap">
-   </script>
-   <script src="jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="mapsapi.js"></script>
+<body>
+    <div class="container">
+        <div class="options-box">
+            <h1>The Leytonstoner: a guide to eating, drinking and living in East London </h1>
 
- </body>
+
+            <h2>Refine choices</h2>
+            <div class="dropdown">
+                <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>
+                <ul data-bind="foreach: locationPlaces">
+                    <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    </script>
+    <hr>
+    <div id="map"></div>
+    <script type='text/javascript' src='knockout-3.4.2.js'></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap">
+    </script>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="mapsapi.js"></script>
+
+</body>
+
 </html>
