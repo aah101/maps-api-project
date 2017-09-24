@@ -1,36 +1,34 @@
 <html>
-
-<head>
-
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!-- styles put here, but you can include a CSS file and reference it instead! -->
-</head>
-
-<body>
-    <div class="container">
-        <div class="options-box">
-            <h1>The Leytonstoner: a guide to eating, drinking and living in East London </h1>
-
-
-            <h2>Refine choices</h2>
-            <div class="dropdown">
-                <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>
-                <ul data-bind="foreach: locationPlaces">
-                    <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li>
-                </ul>
+   <head>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+      <div class="container">
+         <div class="hamburger" id="clickCounter" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+         </div>
+         <h1>The Leytonstoner: London's E11</h1>
+      </div>
+      <div id="mySideNav" class="sidenav">
+         <!-- <a href="javascript:void(0)" class="hamburger" class="closebtn" onclick="closeNav()">&times;</a> -->
+         <div class="options-box">
+            <div id="dropdown">
+               <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>
+               <ul data-bind="foreach: locationPlaces">
+                  <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li>
+               </ul>
             </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-    </script>
-    <hr>
-    <div id="map"></div>
-    <script type='text/javascript' src='knockout-3.4.2.js'></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap">
-    </script>
-    <script src="jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="mapsapi.js"></script>
-
-</body>
-
+         </div>
+      </div>
+      <script type="text/javascript"></script>
+      <hr>
+      <div id="map"></div>
+      <script type='text/javascript' src='knockout-3.4.2.js'></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap"></script>
+      <script src="jquery-3.2.1.min.js"></script>
+      <script type="js/text/javascript" src="mapsapi.js"></script>
+   </body>
 </html>

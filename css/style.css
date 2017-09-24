@@ -1,134 +1,416 @@
-  /* <style type="text/css">*/
-  
-  html,
-  body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-  }
-  #map {
-      height: 100%;
-  }
-  ,
-  .container {
-      height: 100%;
-      position: relative;
-  }
-  h1 {
-      background-color: #4CAF50;
-      color: white;
-      padding: 5px;
-      font-size: 22px;
-      border: none;
-      cursor: pointer;
-      font-family: helvetica;
-      margin-right: 25px;
-  }
-  hr {
-      background: #D0D7D9;
-      height: 1px;
-      margin: 20px 0 20px 0;
-      border: none;
-  }
-  #map {
-      bottom: 0px;
-      height: 100%;
-      left: 362px;
-      position: absolute;
-      right: 0px;
-  }
-  .options-box {
-      background: #fff;
-      border: 1px solid #999;
-      border-radius: 3px;
-      height: 100%;
-      line-height: 35px;
-      padding: 10px 10px 30px 30px;
-      text-align: left;
-      width: 340px;
-  }
-  #map {
-      bottom: 0px;
-      height: 100%;
-      left: 362px;
-      position: absolute;
-      right: 0px;
-  }
-  #pano {
-      width: 200px;
-      height: 200px;
-  }
-  #zoom-to-area-text {
-      position: relative;
-      width: 70%;
-  }
-  #zoom-to-area {
-      width: 24%;
-  }
-  #search-within-time-text {
-      width: 84%;
-  }
-  .text {
-      font-size: 12px;
-  }
-  /* Dropdown Button taken from https://www.w3schools.com/howto/howto_css_dropdown.asp */
-  
-  .dropbtn {
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-  }
-  /* Dropdown button on hover & focus */
-  /*.dropbtn:hover, .dropbtn:focus {
+/* <style type="text/css">*/
+
+html,
+body,
+#map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: absolute;
+    z-index: +12;
+}
+
+#map {
+    bottom: 0px;
+    /*height: 100vh;*/
+    /*width: 80%;*/
+    position: absolute;
+    left: 250px;
+    right: 0px;
+    z-index: +10;
+}
+
+h1 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+    font-family: helvetica;
+    margin-right: 25px;
+    position: absolute;
+    margin-left: 200px;
+    z-index: +4;
+    width: 400px;
+}
+
+hr {
+    background: #D0D7D9;
+    height: 1px;
+    margin: 20px 0 20px 0;
+    border: none;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: +1;
+    top: 0;
+    left: -45;
+    background-color: white;
+    transition: 0.5s;
+    margin-top: 45px;
+}
+
+.options-box {
+    background: #fff;
+    border: 1px solid #999;
+    border-radius: 3px;
+    height: 100%;
+    line-height: 35px;
+    padding: 10px 10px 30px 30px;
+    text-align: left;
+    width: 340px;
+}
+
+#pano {
+    width: 200px;
+    height: 200px;
+}
+
+#zoom-to-area-text {
+    position: relative;
+    width: 70%;
+}
+
+#zoom-to-area {
+    width: 24%;
+}
+
+#search-within-time-text {
+    width: 84%;
+}
+
+.text {
+    font-size: 12px;
+}
+
+
+/* Dropdown Button taken from https://www.w3schools.com/howto/howto_css_dropdown.asp */
+/*hamburger button from *//*https://www.w3schools.com/howto/howto_css_menu_icon.asp*/
+.hamburger {
+    display: none;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 5px;
+    padding-right: 15px;
+    margin-left: 20px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content li {
+    color: black;
+    padding: 2px 2px;
+    text-decoration: none;
+    display: block;
+}
+
+
+/* Change color of dropdown links on hover */
+.dropdown-content li:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Show the dropdown menu */
+.show {
+    display: block;
+    position: relative;
+    top: -7px;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+
+.dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
+    .hamburger {
+        display: inline-block;
+        cursor: pointer;
+        background-color: green;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: 10px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        z-index: +7;
+    }
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 15px;
+        height: 2px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+    /* Rotate first bar */
+    .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-9px, 6px);
+    }
+    /* Fade out the second bar */
+    .change .bar2 {
+        opacity: 0;
+    }
+    /* Rotate last bar */
+    .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+    }
+    .dropbtn {
+        padding: 8px;
+        font-size: 12px;
+        margin-top: 5px;
+        padding-right: 10px;
+        margin-left: 10px;
+    }
+    /*.hamburger {
+  display: block;
 }*/
-  /* The container <div> - needed to position the dropdown content */
-  
-  .dropdown {
-      position: relative;
-      display: inline-block;
-  }
-  /* Dropdown Content (Hidden by Default) */
-  
-  .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-  }
-  /* Links inside the dropdown */
-  
-  .dropdown-content li {
-      color: black;
-      padding: 2px 2px;
-      text-decoration: none;
-      display: block;
-  }
-  /* Change color of dropdown links on hover */
-  
-  .dropdown-content li:hover {
-      background-color: #f1f1f1;
-  }
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  
-  .show {
-      display: block;
-      position: relative;
-      top: -7px;
-  }
-  /*</style>*/
-  /* Show the dropdown menu on hover */
-  
-  .dropdown:hover .dropdown-content {
-      display: block;
-  }
-  /* Change the background color of the dropdown button when the dropdown content is shown */
-  
-  .dropdown:hover .dropbtn {
-      background-color: #3e8e41;
-  }
+    #map {
+        bottom: 0px;
+        /*width: 60%;*/
+        height: 100vh;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        z-index: +10;
+    }
+    /* The side navigation menu */
+    .sidenav {
+        height: 100%;
+        /* 100% Full-height */
+        width: 0;
+        /* 0 width - change this with JavaScript */
+        position: fixed;
+        /* Stay in place */
+        z-index: +15;
+        /* Stay on top */
+        top: 0;
+        left: -45;
+        background-color: white;
+        /* Black*/
+        overflow-x: hidden;
+        /* Disable horizontal scroll */
+        /*padding-top: 40px;*/
+        /* Place content 60px from the top */
+        transition: 0.5s;
+        /* 0.5 second transition effect to slide in the sidenav */
+        margin-top: 60px;
+    }
+    span {
+        position: fixed;
+        z-index: +3;
+    }
+    .closebtn {
+        display: none;
+    }
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+        position: relative;
+        top: 0;
+        right: 25px;
+        font-size: 18px;
+        margin-left: 50px;
+        z-index: +2;
+    }
+    /*.closeNav {
+
+}
+*/
+    h1 {
+        font-size: 10px;
+        width: 50%;
+        line-height: 10px;
+        word-wrap: wrap;
+        position: relative;
+        /*max-width: 400px;*/
+        margin-left: 40px;
+        margin-top: -30px;
+    }
+    .options-box {
+        font-size: 10px;
+        line-height: 20px;
+    }
+    .options-box a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 8px;
+        line-height: 5px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+        word-wrap: wrap;
+    }
+    /* When you mouse over the navigation links, change their color */
+    .options-box a:hover,
+    .offcanvas a:focus {
+        color: #f1f1f1;
+    }
+    /* Position and style the close button (top right corner) */
+    .options-box .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 25px;
+        margin-left: 50px;
+    }
+}
+
+@media only screen and (min-device-width: 480px) and (max-device-width: 1024px) {
+    .hamburger {
+        display: inline-block;
+        cursor: pointer;
+        background-color: green;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        z-index: +7;
+    }
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 15px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+    /* Rotate first bar */
+    .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-9px, 6px);
+    }
+    /* Fade out the second bar */
+    .change .bar2 {
+        opacity: 0;
+    }
+    /* Rotate last bar */
+    .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+    }
+    /*.hamburger {
+  display: block;
+}*/
+    #map {
+        bottom: 0px;
+        height: 100vh;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        z-index: +10;
+    }
+    .dropbtn {
+        padding: 8px;
+        font-size: 12px;
+        margin-top: 5px;
+        padding-right: 10px;
+        margin-left: 10px;
+    }
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: +12;
+        top: 0;
+        left: -45;
+        background-color: white;
+        overflow-x: hidden;
+        transition: 0.5s;
+        margin-top: 80px;
+    }
+    span {
+        position: fixed;
+        z-index: +3;
+    }
+    .closebtn {
+        display: none;
+    }
+
+    .sidenav .closebtn {
+        position: relative;
+        top: 0;
+        right: 25px;
+        font-size: 18px;
+        margin-left: 50px;
+        z-index: +2;
+    }
+
+    h1 {
+        font-size: 15px;
+        width: 300px;
+        line-height: 17px;
+        word-wrap: wrap;
+        position: relative;
+        margin-left: 45px;
+        margin-top: -44px;
+    }
+
+    .options-box {
+        font-size: 10px;
+        line-height: 20px;
+    }
+
+    .options-box a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 8px;
+        line-height: 5px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+        word-wrap: wrap;
+    }
+
+    .options-box a:hover,
+    .offcanvas a:focus {
+        color: #f1f1f1;
+    }
+
+    .options-box .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 25px;
+        margin-left: 50px;
+    }
+}
