@@ -24,12 +24,11 @@ function secondClick(event) {
 //add change class to display sidenav menu
 function myFunction(x) {
   x.classList.toggle("change");
-
 }
 
 
 //model
-//hard code locations
+//hard coded locations
 var locations = [{
     title: 'Northcote Arms',
     type: 'Bars',
@@ -147,7 +146,7 @@ var viewModel = function () {
       this.isVisible = ko.observable(true),
       this.location = element.location,
       this.type = element.type,
-      this.marker = element.marker
+      this.marker = element.marker;
   };
 
   //create knockout.js observable array
@@ -298,7 +297,33 @@ function initMap() {
     largeInfowindow = new google.maps.InfoWindow();
 
     //listeners to bounce each marker 
-    marker.addListener('click', function (place) {
+
+    marker.addListener('click', markerListener);
+
+    // marker.addListener('click', function (place) {
+    //   var self = this;
+    //   map.panTo(marker.getPosition());
+    //   self.setAnimation(google.maps.Animation.BOUNCE);
+    //   setTimeout(function () {
+    //     self.setAnimation(null);
+    //   }, 750);
+    //   map.fitBounds(bounds);
+    //   //function call to fill infowindow with wikipedia api 
+    //   populateInfoWindow(this, infowindow);
+    // });
+
+    //listener for mouseover event
+    marker.addListener('mouseover', mouseOver);
+
+    //listener for mouseout event
+    marker.addListener('mouseover', mouseOut);
+    
+    bounds.extend(markers[i].position);
+
+  }
+  //closes the for loop
+
+      function markerListener() { 
       var self = this;
       map.panTo(marker.getPosition());
       self.setAnimation(google.maps.Animation.BOUNCE);
@@ -308,22 +333,16 @@ function initMap() {
       map.fitBounds(bounds);
       //function call to fill infowindow with wikipedia api 
       populateInfoWindow(this, infowindow);
-    });
+    }
 
-    //listener for mouseover event
-    marker.addListener('mouseover', function () {
+
+    function mouseOver() {
       this.setIcon(highlightedIcon);
-    });
+    }
 
-    //listener for mouseout event
-    marker.addListener('mouseout', function () {
+    function mouseOut() {
       this.setIcon(defaultIcon);
-    });
-
-    bounds.extend(markers[i].position);
-
-  }
-  //closes the for loop
+    }
 
   map.fitBounds(bounds);
 
