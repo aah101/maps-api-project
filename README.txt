@@ -8,6 +8,12 @@ It uses a wikipedia JSON request for information related to the names and word a
 
 The app adjusts for mobile, tablet and full screen sizes.
 
+
+How to run the app locally
+1 download or clone the app from https://github.com/aah101/frontend-nanodegree-mobile-portfolio
+2 open mapsapi.html
+
+
 sources and credits:
 source code for dropdown Button adapated from https://www.w3schools.com/howto/howto_css_dropdown.asp
 source code for hamburger button adapted from https://www.w3schools.com/howto/howto_css_menu_icon.asp
