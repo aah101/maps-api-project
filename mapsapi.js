@@ -6,139 +6,43 @@ var largeInfowindow;
 var listInfoWindow;
 var infowindow;
 var newArray;
+var populateInfoWindow;
+  
 
+  function mapErrorHandler() {
+    alert('There was a problem loading Google Maps');
+  }
 
 //function for handling dropdown menu
-document.getElementById("clickCounter").addEventListener("click", secondClick);
+// document.getElementById("clickCounter").addEventListener("click", secondClick);
 
-var clickCount = 0;
-function secondClick(event) {
-  clickCount++;
-  if (clickCount % 2 !== 0) {
-    document.getElementById("mySideNav").style.width = "150px";
-  } else {
-    document.getElementById("mySideNav").style.width = "0";
-  }
-}
+// var clickCount = 0;
+// function secondClick(event) {
+//   clickCount++;
+//   if (clickCount % 2 !== 0) {
+//     document.getElementById("mySideNav").style.width = "150px";
+//   } else {
+//     document.getElementById("mySideNav").style.width = "0";
+//   }
+// }
 
-//add change class to display sidenav menu
-function myFunction(x) {
-  x.classList.toggle("change");
-}
-
-
-//model
-//hard coded locations
-var locations = [{
-    title: 'Northcote Arms',
-    type: 'Bars',
-    location: {
-      lat: 51.560395,
-      lng: -0.001637
-    }
-  },
-  {
-    title: 'All you read is love',
-    type: 'Diners',
-    location: {
-      lat: 51.570642,
-      lng: 0.014055
-    }
-  },
-  {
-    title: 'Little Saigon',
-    type: 'Diners',
-    location: {
-      lat: 51.569132,
-      lng: 0.012022
-    }
-  },
-  {
-    title: 'The Red Lion',
-    type: 'Bars',
-    location: {
-      lat: 51.567992,
-      lng: 0.010976
-    }
-  },
-  {
-    title: 'Marmelo',
-    type: 'Diners',
-    location: {
-      lat: 51.564073,
-      lng: -0.005854
-    }
-  },
-  {
-    title: 'Leyton Technical',
-    type: 'Bars',
-    location: {
-      lat: 51.558887,
-      lng: -0.007482
-    }
-  },
-  {
-    title: 'Hitchcock house',
-    type: 'Things to do',
-    location: {
-      lat: 51.560066,
-      lng: 0.007322
-    }
-  },
-  {
-    title: 'Mora Italian',
-    type: 'Diners',
-    location: {
-      lat: 51.559262,
-      lng: 0.006974
-    }
-  },
-  {
-    title: 'Olympic Stadium',
-    type: 'Things to do',
-    location: {
-      lat: 51.539469,
-      lng: -0.016590
-    }
-  },
-  {
-    title: 'Roof East',
-    type: 'Bars',
-    location: {
-      lat: 51.541811,
-      lng: -0.001248
-    }
-  },
-  {
-    title: 'Westfield',
-    type: 'Things to do',
-    location: {
-      lat: 51.543452,
-      lng: -0.006527
-    }
-  },
-  {
-    title: 'Olympic pool',
-    type: 'Things to do',
-    location: {
-      lat: 51.540972,
-      lng: -0.010674
-    }
-  },
-  {
-    title: 'The Breakfast Club',
-    type: 'Diners',
-    location: {
-      lat: 51.550681,
-      lng: -0.024590
-    }
-  }
-];
-//closes model
+// //add change class to display sidenav menu
+// function myFunction(x) {
+//   x.classList.toggle("change");
+// }
 
 
-var viewModel = function () {
+var ViewModel = function () {
   var self = this;
+
+  self.visibleExample = ko.observable(false);      
+    
+
+  self.refineSearch = function() {    
+  console.log('click');  
+        this.visibleExample(!this.visibleExample());
+    } 
+
 
   //Locations constructor
   var Locations = function (element) {
@@ -193,7 +97,6 @@ var viewModel = function () {
     }
   });
 
-
   //callback function for clicks on list items
   self.clickHandler = function (place) {
     //call function to clear all markers
@@ -204,10 +107,10 @@ var viewModel = function () {
       place.marker.setAnimation(null);
     }, 750);
     map.panTo(marker.getPosition());
+    populateInfoWindow(this.marker, infowindow);
 
-
-    listInfoWindow.setContent(this.title);
-    listInfoWindow.open(map, this.marker);
+    //listInfoWindow.setContent(this.title);
+    //listInfoWindow.open(map, this.marker);
   };
 
   //function to clear markers 
@@ -221,13 +124,15 @@ var viewModel = function () {
   }
 
 };
-// closes viewModel
+// closes ViewModel
 
-//declare new viewModel
-var vm = new viewModel();
+//declare new ViewModel
+var vm = new ViewModel();
 
 
 function initMap() {
+
+
   //declare new google map
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
@@ -347,7 +252,7 @@ function initMap() {
   map.fitBounds(bounds);
 
   //pop up windows for wikipedia api
-  function populateInfoWindow(marker, infowindow) {
+  populateInfoWindow = function(marker, infowindow) {
 
     //close any existing infowindows
     if (listInfoWindow) {
@@ -360,6 +265,9 @@ function initMap() {
     $.ajax({
       url: wikiUrl,
       dataType: 'jsonp',
+      error: function(request,status,errorThrown) {
+        alert('Sorry, the call to wikipedia failed')
+   },
     }).done(function (response) {
 
       var articleUrl = response[3][0];
@@ -384,35 +292,8 @@ function initMap() {
           infowindow.setMarker = null;
         });
 
-        //not used 
-        // var streetViewService = new google.maps.StreetViewService();
-        // var radius = 50;
-        // //in case status is okay, (pano found), compute position of streetview image, then calculate heading, then get a pano from that and set options
-        // function getStreetView(data, status) {
-        //     if (status == google.maps.StreetViewStatus.OK) {
-        //         var nearStreetViewLocation = data.location.latLng;
-        //         var heading = google.maps.geometry.spherical.computeHeading(
-        //             nearStreetViewLocation, marker.position);
-        //         infowindow.setContent('<div>' + marker.title + '</div>'); //+ '</div><div id="pano"</div>'
-        //         var panoramaOptions = {
-        //             position: nearStreetViewLocation,
-        //             pov: {
-        //                 heading: heading,
-        //                 pitch: 30
-        //             }
-        //         };
-        //         var panorama = new google.maps.StreetViewPanorama(
-        //             document.getElementById('pano'), panoramaOptions);
-        //     } else {
-        //         infowindow.setContent('<div>' + marker.title + '</div>' + '<div>No street view found</div>');
-        //     }
-        // }
-        // //use streetview service to get the closest streetview image witin 50m
-        // streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-        // //open info window on correct marker
-        // //infowindow.open(map, marker);
-
       }
+
       map.fitBounds(bounds);
     });
   }

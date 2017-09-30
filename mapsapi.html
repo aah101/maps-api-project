@@ -1,20 +1,28 @@
-<html>
-   <head>
+<!DOCTYPE html>
+   <header>
+      <title>Google maps guide to London's E11 district</title>
       <link rel="stylesheet" type="text/css" href="css/style.css">
       <script src="jquery-3.2.1.min.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+   </header>
    <body>
       <div class="container">
-         <div class="hamburger" id="clickCounter" onclick="myFunction(this)">
+              <h1>The Leytonstoner: London's E11</h1>    
+                  
+      <button data-bind="click: $root.refineSearch" class="btn">Refine search</button>
+      <div data-bind="css: {'sidenav': $root.visibleExample }" class="sidenav">
+      
+         <!-- <div class="hamburger" id="clickCounter" onclick="myFunction(this)">
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
-         </div>
-         <h1>The Leytonstoner: London's E11</h1>
+         </div> -->
+         <!-- <h1>The Leytonstoner: London's E11</h1> -->
       </div>
-      <div id="mySideNav" class="sidenav">
+   </div>
+      <nav id="mySideNav"> <!-- class="sidenav" -->
          <!-- <a href="javascript:void(0)" class="hamburger" class="closebtn" onclick="closeNav()">&times;</a> -->
+         <!-- data-bind="visible: visibleExample" -->
          <div class="options-box">
             <div id="dropdown">
                <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>
@@ -23,12 +31,15 @@
                </ul>
             </div>
          </div>
-      </div>
+      </nav>
+      <main>
       <script type="text/javascript"></script>
       <hr>
       <div id="map"></div>
       <script type='text/javascript' src='knockout-3.4.2.js'></script>
+      <script type="text/javascript" src="locations.js"></script>
       <script type="text/javascript" src="mapsapi.js"></script>
-      <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap"></script>
+      <script  async defer src="https://mapsx.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap" onerror="mapErrorHandler()"></script>
+   </main>
    </body>
 </html>
