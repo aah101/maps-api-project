@@ -1,45 +1,36 @@
 <!DOCTYPE html>
-   <header>
-      <title>Google maps guide to London's E11 district</title>
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <script src="jquery-3.2.1.min.js"></script>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </header>
-   <body>
-      <div class="container">
-              <h1>The Leytonstoner: London's E11</h1>    
-                  
-      <button data-bind="click: $root.refineSearch" class="btn">Refine search</button>
-      <div data-bind="css: {'sidenav': $root.visibleExample }" class="sidenav">
-      
-         <!-- <div class="hamburger" id="clickCounter" onclick="myFunction(this)">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-         </div> -->
-         <!-- <h1>The Leytonstoner: London's E11</h1> -->
+<header>
+   <title>Google maps guide to London's E11 district</title>
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <script src="jquery-3.2.1.min.js"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</header>
+<body>
+   <nav class="container">
+      <h1>The Leytonstoner: London's E11</h1>
+      <div class="hamburger" id="toggle" class="myFunction(x)">
+         <div class="bar1"></div>
+         <div class="bar2"></div>
+         <div class="bar3"></div>
       </div>
-   </div>
-      <nav id="mySideNav"> <!-- class="sidenav" -->
-         <!-- <a href="javascript:void(0)" class="hamburger" class="closebtn" onclick="closeNav()">&times;</a> -->
-         <!-- data-bind="visible: visibleExample" -->
-         <div class="options-box">
-            <div id="dropdown">
-               <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>
-               <ul data-bind="foreach: locationPlaces">
-                  <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-      <main>
+   </nav>
+   <container>
+      <div data-bind="visible: refineSearch()" id="dropdown" class="options-box">
+         <select class="dropbtn" class="dropdown-content" data-bind="options: typeChoices, value: typeSelector"></select>
+         <ul data-bind="foreach: locationPlaces" class="listBox">
+            <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li>
+            <!-- <li data-bind="text: title, click: $root.clickHandler, visible: isVisible"></li> -->
+         </ul>
+      </div>
+   </container>
+   <main>
       <script type="text/javascript"></script>
       <hr>
       <div id="map"></div>
       <script type='text/javascript' src='knockout-3.4.2.js'></script>
       <script type="text/javascript" src="locations.js"></script>
       <script type="text/javascript" src="mapsapi.js"></script>
-      <script  async defer src="https://mapsx.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap" onerror="mapErrorHandler()"></script>
+      <script  async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyB_QOWtSCQ1B67BoVzsX_vM2KaOiFamI7U&v=3&callback=initMap" onerror="mapErrorHandler()"></script>
    </main>
-   </body>
+</body>
 </html>

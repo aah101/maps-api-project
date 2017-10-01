@@ -8,41 +8,23 @@ var infowindow;
 var newArray;
 var populateInfoWindow;
   
-
+  //added error handler function for any problems with google maps
   function mapErrorHandler() {
     alert('There was a problem loading Google Maps');
   }
 
-//function for handling dropdown menu
-// document.getElementById("clickCounter").addEventListener("click", secondClick);
-
-// var clickCount = 0;
-// function secondClick(event) {
-//   clickCount++;
-//   if (clickCount % 2 !== 0) {
-//     document.getElementById("mySideNav").style.width = "150px";
-//   } else {
-//     document.getElementById("mySideNav").style.width = "0";
-//   }
-// }
-
-// //add change class to display sidenav menu
-// function myFunction(x) {
-//   x.classList.toggle("change");
-// }
-
-
 var ViewModel = function () {
   var self = this;
 
-  self.visibleExample = ko.observable(false);      
-    
-
+  //added binding for sidebar toggle
+  self.showSidebar = ko.observable(true);          
   self.refineSearch = function() {    
-  console.log('click');  
-        this.visibleExample(!this.visibleExample());
-    } 
+    return self.showSidebar()
+    };
 
+    $('#toggle').on('click', function() {
+  self.showSidebar(!self.showSidebar());
+  });
 
   //Locations constructor
   var Locations = function (element) {
@@ -107,10 +89,9 @@ var ViewModel = function () {
       place.marker.setAnimation(null);
     }, 750);
     map.panTo(marker.getPosition());
+    //call for the JSON wikipedia infowindows for each place in the sidebar 
     populateInfoWindow(this.marker, infowindow);
 
-    //listInfoWindow.setContent(this.title);
-    //listInfoWindow.open(map, this.marker);
   };
 
   //function to clear markers 
@@ -205,18 +186,6 @@ function initMap() {
 
     marker.addListener('click', markerListener);
 
-    // marker.addListener('click', function (place) {
-    //   var self = this;
-    //   map.panTo(marker.getPosition());
-    //   self.setAnimation(google.maps.Animation.BOUNCE);
-    //   setTimeout(function () {
-    //     self.setAnimation(null);
-    //   }, 750);
-    //   map.fitBounds(bounds);
-    //   //function call to fill infowindow with wikipedia api 
-    //   populateInfoWindow(this, infowindow);
-    // });
-
     //listener for mouseover event
     marker.addListener('mouseover', mouseOver);
 
@@ -301,4 +270,4 @@ function initMap() {
   ko.applyBindings(vm);
 
 
-} //closes the init maps
+}

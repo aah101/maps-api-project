@@ -1,30 +1,24 @@
-/* <style type="text/css">*/
-
 html,
 body,
-
 #map {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
 }
-
 .container {
     position: absolute;
     z-index: +12;
 }
-
 #map {
     bottom: 0px;
     /*height: 100vh;*/
     /*width: 80%;*/
+    
     position: absolute;
-    left: 250px;
     right: 0px;
     z-index: +10;
 }
-
 h1 {
     background-color: #4CAF50;
     color: white;
@@ -33,11 +27,38 @@ h1 {
     border: none;
     cursor: pointer;
     font-family: helvetica;
-    margin-right: 25px;
+    margin-right: 20px;
     position: absolute;
-    margin-left: 200px;
+    margin-left: 70px;
     z-index: +4;
     width: 400px;
+    margin-top: -5px;
+}
+.hamburger {
+    display: inline-block;
+    cursor: pointer;
+    background-color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: -5px;
+    margin-left: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    z-index: +7;
+}
+.container {
+    display: inline-block;
+    cursor: pointer;
+}
+.bar1,
+.bar2,
+.bar3 {
+    width: 23px;
+    height: 4px;
+    background-color: #4CAF50;
+    margin: 6px 0;
+    color: white;
+    z-index: 200;
 }
 
 hr {
@@ -46,7 +67,6 @@ hr {
     margin: 20px 0 20px 0;
     border: none;
 }
-
 .sidenav {
     height: 100%;
     width: 0;
@@ -58,47 +78,19 @@ hr {
     transition: 0.5s;
     margin-top: 45px;
 }
-
-
-
 .options-box {
     background: #fff;
     border: 1px solid #999;
     border-radius: 3px;
-    height: 100%;
+    height: 80%;
     line-height: 35px;
-    padding: 10px 10px 30px 30px;
+    padding: 10px 15px 0px 0px;
     text-align: left;
-    width: 340px;
-}
-
-#pano {
-    width: 200px;
-    height: 200px;
-}
-
-#zoom-to-area-text {
-    position: relative;
-    width: 70%;
-}
-
-#zoom-to-area {
-    width: 24%;
-}
-
-#search-within-time-text {
-    width: 84%;
-}
-
-.text {
-    font-size: 12px;
-}
-
-
-/* Dropdown Button taken from https://www.w3schools.com/howto/howto_css_dropdown.asp */
-/*hamburger button from *//*https://www.w3schools.com/howto/howto_css_menu_icon.asp*/
-.btn {
-    display: none;
+    width: 170px;
+    position: absolute;
+    z-index: 99;
+    margin-top: 40px;
+    margin-left: 20px;
 }
 
 .dropbtn {
@@ -112,12 +104,10 @@ hr {
     padding-right: 15px;
     margin-left: 20px;
 }
-
 .dropdown {
     position: relative;
     display: inline-block;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -127,7 +117,6 @@ hr {
     z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content li {
     color: black;
     padding: 2px 2px;
@@ -135,18 +124,8 @@ hr {
     display: block;
 }
 
-
-/* Change color of dropdown links on hover */
 .dropdown-content li:hover {
     background-color: #f1f1f1;
-}
-
-
-/* Show the dropdown menu */
-.show {
-    display: block;
-    position: relative;
-    top: -7px;
 }
 
 
@@ -154,38 +133,81 @@ hr {
     display: block;
 }
 
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
 
-@media only screen and (min-device-width: 0px) and (max-device-width: 480px) {
-    .hamburger {
-        display: inline-block;
-        cursor: pointer;
-        background-color: green;
-        padding-left: 10px;
-        padding-right: 10px;
-        margin-top: 10px;
-        padding-top: 0px;
-        padding-bottom: 0px;
-        z-index: +7;
+@media only screen and (min-device-width: 0px) and (max-device-width: 405px) {
+    .options-box {
+        height: 60%;
+        line-height: 20px;
+        font-size: 9px;
+        margin-top: 25px;
+        width: 33%;
     }
+    .hamburger {
+        margin-top: -34px;
+        position: absolute;
+        margin-left: 4px;
+    }
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 15px;
+        height: 1px;
+    }
+    h1 {
+        font-size: 10px;
+        width: 200px;
+        line-height: 17px;
+        word-wrap: wrap;
+        position: relative;
+        margin-left: 43px;
+        margin-top: -15px;
+    }
+    .listBox {
+        padding-left: 18px;
+    }
+    .options-box {
+        height: 50%;
+        line-height: 16px;
+        font-size: 10px;
+        margin-top: 18px;
+        width: 33%;
+        margin-left: 4px;
+        padding-right: 0px;
+    }
+    .dropbtn {
+        font-size: 10px;
+        padding-right: 1px;
+        margin-left: 5px;
+    }
+}
 
-
+@media only screen and (min-device-width: 406px) and (max-device-width: 480px) {
+    .hamburger {
+        margin-top: -40px;
+        margin-left: 20px;
+        padding-top: -20px;
+        padding-bottom: 0px;
+        z-index: +150;
+        position: absolute;
+    }
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 15px;
+        height: 2px;
+    }
     #map {
-        bottom: 0px;
-        /*width: 60%;*/
+        bottom: 0px;        
         height: 100vh;
         position: absolute;
         left: 0px;
         right: 0px;
         z-index: +10;
     }
-
-    /* The side navigation menu */
+    
     .sidenav {
         height: 100%;
         width: 0;
@@ -194,7 +216,6 @@ hr {
         top: 0;
         left: -45;
         background-color: white;
-        overflow-x: hidden;
         transition: 0.5s;
         margin-top: 60px;
     }
@@ -202,35 +223,25 @@ hr {
         position: fixed;
         z-index: +3;
     }
-    .closebtn {
-        display: none;
-    }
-    /* Position and style the close button (top right corner) */
-    .sidenav .closebtn {
-        position: relative;
-        top: 0;
-        right: 25px;
-        font-size: 18px;
-        margin-left: 50px;
-        z-index: +2;
-    }
-    /*.closeNav {
 
-}
-*/
     h1 {
-        font-size: 10px;
-        width: 50%;
-        line-height: 10px;
+        font-size: 15px;
+        width: 240px;
+        line-height: 17px;
         word-wrap: wrap;
         position: relative;
-        /*max-width: 400px;*/
-        margin-left: 40px;
-        margin-top: -30px;
+        margin-left: 70px;
+        margin-top: -10px;
     }
     .options-box {
-        font-size: 10px;
+        height: 50%;
         line-height: 20px;
+        font-size: 12px;
+        margin-top: 25px;
+        width: 33%;
+    }
+    .dropbtn {
+        font-size: 12px;
     }
     .options-box a {
         padding: 8px 8px 8px 32px;
@@ -242,39 +253,24 @@ hr {
         transition: 0.3s;
         word-wrap: wrap;
     }
-    /* When you mouse over the navigation links, change their color */
-    .options-box a:hover,
-    .offcanvas a:focus {
-        color: #f1f1f1;
-    }
-    /* Position and style the close button (top right corner) */
-    .options-box .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 25px;
-        margin-left: 50px;
-    }
+    
 }
-
 @media only screen and (min-device-width: 480px) and (max-device-width: 1024px) {
-
-.btn {
-    display: block;
-    z-index: +20;
-    margin-top: -38px;
-    margin-left: 5;
-    background-color: #4CAF50;
-    color: white;
-    width: 50px;
-}
-
-.alert-danger {
-  transition: all 1s ease;
-
-}
-
-
+    
+    .hamburger {
+        margin-top: -40px;
+        margin-left: 20px;
+        padding-top: -20px;
+        padding-bottom: 0px;
+        z-index: +150;
+        position: absolute;
+    }
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 20px;
+        height: 2px;
+    }
     #map {
         bottom: 0px;
         height: 100vh;
@@ -298,62 +294,34 @@ hr {
         top: 0;
         left: -45;
         background-color: white;
-        overflow-x: hidden;
+        /*overflow-x: hidden;*/
+        
         transition: 0.5s;
         margin-top: 80px;
     }
-    span {
-        position: fixed;
-        z-index: +3;
-    }
-    .closebtn {
-        display: none;
-    }
-
-    .sidenav .closebtn {
-        position: relative;
-        top: 0;
-        right: 25px;
-        font-size: 18px;
-        margin-left: 50px;
-        z-index: +2;
-    }
-
     h1 {
-    font-size: 15px;
-    width: 240px;
-    line-height: 17px;
-    word-wrap: wrap;
-    position: relative;
-    margin-left: 60px;
-    margin-top: 10px;
-    
-    .options-box {
-        font-size: 10px;
-        line-height: 20px;
+        font-size: 15px;
+        width: 240px;
+        line-height: 17px;
+        word-wrap: wrap;
+        position: relative;
+        margin-left: 70px;
+        margin-top: -10px;
     }
-
+    .options-box {
+        height: 60%;
+        line-height: 25px;
+        font-size: 15px;
+        margin-top: 30px;
+    }
     .options-box a {
         padding: 8px 8px 8px 32px;
         text-decoration: none;
-        font-size: 8px;
-        line-height: 5px;
+        font-size: 15px;
+        line-height: 25px;
         color: #818181;
         display: block;
         transition: 0.3s;
         word-wrap: wrap;
-    }
-
-    .options-box a:hover,
-    .offcanvas a:focus {
-        color: #f1f1f1;
-    }
-
-    .options-box .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 25px;
-        margin-left: 50px;
     }
 }
